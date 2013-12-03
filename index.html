@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>TinyAccordion JavaScript Accordion</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+
+<ul class="acc" id="acc">
+	<li>
+		<h3>ひらがな</h3>
+		<div class="acc-section">
+			<div class="acc-content">
+				<ul class="acc" id="nested1">
+					<li>
+						<h3>あ行</h3>
+						<div class="acc-section">
+							<div class="acc-content">
+							あいうえお
+							</div>
+						</div>
+					</li>
+					<li>
+						<h3>か行</h3>
+						<div class="acc-section">
+							<div class="acc-content">
+							かきくけこ
+							</div>
+						</div>
+					</li>
+					<li>
+						<h3>さ行</h3>
+						<div class="acc-section">
+							<div class="acc-content">
+							さしすせそ
+							</div>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</li>
+	<li>
+		<h3>カタカナ</h3>
+		<div class="acc-section">
+			<div class="acc-content">
+				<ul class="acc" id="nested2">
+					<li>
+						<h3>ア行</h3>
+						<div class="acc-section">
+							<div class="acc-content">
+							アイウエオ
+							</div>
+						</div>
+					</li>
+					<li>
+						<h3>カ行</h3>
+						<div class="acc-section">
+							<div class="acc-content">
+							カキクケコ
+							</div>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</li>
+	<li>
+		<h3>英語</h3>
+		<div class="acc-section">
+			<div class="acc-content">
+				<ul class="acc" id="nested3">
+					<li>
+						<h3>A-E</h3>
+						<div class="acc-section">
+							<div class="acc-content">
+							a,b,c,d,e
+							</div>
+						</div>
+					</li>
+					<li>
+						<h3>F-J</h3>
+						<div class="acc-section">
+							<div class="acc-content">
+							f,g,h,i,j
+							</div>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</li>
+</ul>
+
+<script type="text/javascript" src="script.js"></script>
+
+<script type="text/javascript">
+
+var parentAccordion=new TINY.accordion.slider("parentAccordion");
+parentAccordion.init("acc","h3",0,-1);
+
+var nestedAccordion1=new TINY.accordion.slider("nestedAccordion1");
+nestedAccordion1.init("nested1","h3",0,-1,"acc-selected");
+
+var nestedAccordion2=new TINY.accordion.slider("nestedAccordion2");
+nestedAccordion2.init("nested2","h3",0,-1,"acc-selected");
+
+var nestedAccordion3=new TINY.accordion.slider("nestedAccordion3");
+nestedAccordion3.init("nested3","h3",0,-1,"acc-selected");
+
+</script>
+
+</body>
+</html>

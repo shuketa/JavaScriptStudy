@@ -1,0 +1,51 @@
+* {margin:0; padding:0;}
+code {font-family:'Lucida Grande',
+ 'Hiragino Kaku Gothic ProN', 'ÉqÉâÉMÉmäpÉS ProN W3',
+ Meiryo, ÉÅÉCÉäÉI, sans-serif;}
+
+/* ïù  option:457 acc:457,443,425 nasted:425, 411, 393*/
+/* ïù  option:200 acc:200,193,185 nasted:185, 180, 172*/
+#options {min-width:200px; text-align:right; color:#9ac1c9}
+#options a {text-decoration:none; color:#0000FF}
+#options a:hover {color:#033}
+
+#acc {min-width:200px; list-style:none; color:#033}
+#acc h3 {-webkit-box-flex: 1;		/* Safari,Google Chromeóp */  
+    -moz-box-flex: 1;				/* Firefoxóp */
+    min-width:193px; 
+    border:1px solid #9ac1c9; 
+    padding:6px 6px 8px; 
+    font-size: 116%;
+    font-weight:bold; 
+    margin-top:5px; 
+    cursor:pointer; 
+    background:#F0FFFF}
+#acc h3:hover {
+background:-webkit-gradient(linear, left top, left bottom, from(#3366ff), to(#4477ff));/* å√Ç¢SafariÇ»Ç« */
+background:-webkit-linear-gradient(top, #6633ff 0%, #3300ff 100%);/* Safari,ChromeÇ»Ç« */
+background:-moz-linear-gradient(center top , #6633ff 0%, #3300ff 100%);/* Firefox */
+background:-o-linear-gradient(top, #6633ff 0%, #3300ff 100%);/* Opera */
+background:linear-gradient(top, #6633ff 0%, #3300ff 100%);}/* prefixñ≥Çµ */
+#acc .acc-section {overflow:hidden; background:#fff}
+#acc .acc-content {min-width:185px; padding:15px; border:1px solid #9ac1c9; border-top:none; background:#fff}
+
+#nested1 {min-width:185px; list-style:none; color:#033; margin-bottom:15px}
+#nested1 h3 {min-width:180px; border:1px solid #9ac1c9; padding:6px 6px 8px; font-size: 98%; font-weight:bold; margin-top:5px; cursor:pointer; background:url(images/header.gif)}
+#nested1 h3:hover {background:url(images/header_over.gif)}
+#nested1 .acc-section {overflow:hidden; background:#fff}
+#nested1 .acc-content {min-width:172px; padding:15px; border:1px solid #9ac1c9; border-top:none; background:#fff}
+#nested1 .acc-selected {background:url(images/header_over.gif)}
+
+#nested2 {min-width:185px; list-style:none; color:#033; margin-bottom:15px}
+#nested2 h3 {min-width:180px; border:1px solid #9ac1c9; padding:6px 6px 8px; font-size: 98%; font-weight:bold; margin-top:5px; cursor:pointer; background:url(images/header.gif)}
+#nested2 h3:hover {background:url(images/header_over.gif)}
+#nested2 .acc-section {overflow:hidden; background:#fff}
+#nested2 .acc-content {min-width:172px; padding:15px; border:1px solid #9ac1c9; border-top:none; background:#fff}
+#nested2 .acc-selected {background:url(images/header_over.gif)}
+
+#nested3 {min-width:185px; list-style:none; color:#033; margin-bottom:15px}
+#nested3 h3 {min-width:180px; border:1px solid #9ac1c9; padding:6px 6px 8px; font-size: 98%; font-weight:bold; margin-top:5px; cursor:pointer; background:url(images/header.gif)}
+#nested3 h3:hover {background:url(images/header_over.gif)}
+#nested3 .acc-section {overflow:hidden; background:#fff}
+#nested3 .acc-content {min-width:172px; padding:15px; border:1px solid #9ac1c9; border-top:none; background:#fff}
+#nested3 .acc-selected {background:url(images/header_over.gif)}
