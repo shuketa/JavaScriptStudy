@@ -1,0 +1,57 @@
+SDK互換性ガイド (10000163i 4.0) - Apple Developer
+
+https://developer.apple.com/jp/devcenter/ios/library/documentation/cross_development.pdf
+注: 「廃止された」といっても、直ちにフレームワークやライブラリから削除されてしまう
+わけではありません。より適切な代替手段がある旨を通知するだけです。廃止されたAPIも、
+依然として、コード中に記述することは可能です。しかしAppleでは、できるだけ早期に新
+しいインターフェイスに移行するようお勧めします。将来の版のOSでは、実際に削除され
+る可能性があるからです。廃止されたAPIの代替インターフェイスについては、ヘッダファ
+イルまたは該当する資料を参照してください。How do I make a armv7 arm64 fat binary that will run on iOS 5 through 7?
+http://stackoverflow.com/questions/19482683/how-do-i-make-a-armv7-arm64-fat-binary-that-will-run-on-ios-5-through-7
+
+
+64ビット移行ガイド
+https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaTouch64BitGuide/ConvertingYourAppto64-Bit/ConvertingYourAppto64-Bit.html
+
+
+—————————————————————————————————————————————
+既存アプリをiOS7に対応させる際に気をつけること
+http://lab.sonicmoov.com/smartphone/1279/
+
+
+iOS7移行ガイド
+https://developer.apple.com/jp/devcenter/ios/library/documentation/UserExperience/Conceptual/TransitionGuide/SupportingEarlieriOS/SupportingEarlieriOS.html
+
+
+http://plusblog.jp/9295/
+ iOS7対応で必要だったこと
+
+—————————————————————————————————————————————
+アイコン
+
+http://yandr.randy.boy.jp/?month=201309
+
+要するに
+・120px * 120px
+・76px * 76px
+・152px * 152px
+のアイコンサイズの画像が無いよ。
+
+—————————————————————————————————————————————
+その他
+
+
+http://cocoamix.jp/archives/3639
+Cocoamix.jp » [Xcode] iOS 7.0.2 → 7.0.3 でアプリが起動しなくなった
+
+http://hmdt.jp/blog/?p=645
+deprecatedには、こまめに対応しないといかん | HMDT Blog
+
+http://1topi.jp/curator/sawat/1310/02/332768
+iOSのこれまでの32bit環境と新しい64bit(arm64)環境、それぞれで sizeof() から返されるデータ一覧 - 強火で進め - ONETOPI
+
+http://blog.livedoor.jp/tek_nishi/archives/8069300.html
+でらうま倶楽部 : iOS7のarm64対応でやったこと
+
+【iOS7】バイナリに arm64 アーキテクチャが含まれているかを確認する - Over&Out その後
+http://d.hatena.ne.jp/shu223/20131205/1386208504
