@@ -1,0 +1,88 @@
+
+ 
+************************************************************************************************
+＜NSNotificationCenter　サブスレッド＞
+
+ 間違ったコード
+---------
+        NSDictionary *dict = @{@"key":@"value"};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"notificationName" object:self userInfo:dict];
+
+ ---------
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(testMethod:) name:@"notificationName" object:nil]
+
+
+-(void)testMethod:(NSNotification*)center{
+    // 通知の送信側から送られた値を取得する
+    NSLog(@"%@", center);
+    NSLog(@"isMain=%d",[NSThread isMainThread]);
+    NSDictionary *userInfo = center.userInfo;
+    _label.text = userInfo[@"key"];
+    
+}
+
+
+正しいコード
+---------
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"notificationName"
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      NSLog(@"isMain=%d",[NSThread isMainThread]);
+                                                      NSLog(@"%@", note);
+                                                      NSDictionary *userInfo = note.userInfo;
+                                                      _label.text = userInfo[@"key"];
+                                                  }];
+
+************************************************************************************************
+
+<UIViewController ライフサイクル>
+ViewDidUnloadはiOS6から全く呼ばれなくなっています。
+必要な処理をここに書いているコードをコピペして誰かが利用する可能性があるため、
+削除したほうが良い。
+
+************************************************************************************************
+didReceiveMemoryWarningの考慮を追加すべき
+
+************************************************************************************************
+メモリリーク関係
+
+・NStimerをdeallocで解放してはいけない
+→こうする
+
+@interface NSTimer (EOCBlocksSuport)
++(NSTimer*)eoc_scheduledTimerWithInterval:(NSTimeINterval)interval
+									block:(void(^)())block
+									repeats:(BOOL)repeats
+{
+	return [self scheduledTimerWithTImeInterval:interval
+										targert:self
+										selector:@selector(eoc_blockInvoke:)
+										userInfo:[block copy]
+										repeats:repeats];
+}
+
++(void)eoc_blockInvoke:(NSTimer*)timer 
+{
+	void(^block)() = timer.userInfo;
+	if(block){
+		block();
+	}
+}
+-------------------
+
+-(void)startPoling{
+	__weak EOCClass *weakSelf = self;
+	_pollTimer =
+	[NStimer eoc_scheduledTimerWithTimeInterval:5.0
+										block:^{
+										EOCClass *strongSelf = weakSelf;
+										[stromgSelf p_doPoll];
+										}
+										repeats:YES];
+}
+										}]
+
+
+}
+
