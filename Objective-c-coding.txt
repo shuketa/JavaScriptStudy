@@ -1,0 +1,109 @@
+
+
+--------------------------------------------------------------------
+
+■Objective-cコーディングの基本的な作法
+https://github.com/NYTimes/objective-c-style-guide
+
+
+■上記に書いてない改善ポイントor間違えやすい所or基本作法
+
+・できるだけ前方宣言を使い、ヘッダでimportしない。
+
+・iOS6からViewDidUnloadは一切呼ばれないので
+　呼ばれるつもりで実装してしまうミスを防ぐために削除した方が良い
+
+・NSNotificationCenterのaddObserverForNameを使う場合は
+　addObserverForNameの戻り値を使ってremoveObserverする。
+
+・64bit対応のために、int,longではなく、NSIntegerなどを使った方がいい。
+
+
+■スレッドまわり
+
+<排他制御>
+GCDでのサブスレッドにはシリアルなキューと並列なキューがありますが、
+並列なキューを利用する場合は、変数へのアクセスに排他制御が必要です。
+
+排他制御でよく使われるのは@synchronizedですが、これを使う前に
+一度下記を検討してください。（パフォーマンスや可読性の観点から）
+・本当に並列なキューが必要なのか？シリアルなキューで対応できないか？
+・dispatch_barrierを使って部分的に排他させることで対応できないか？
+　（ex)読み込みは並列で行うが、書き込みだけ排他させたい場合など
+
+
+■循環参照
+
+循環参照によってメモリリーク、アプリクラッシュなどが発生します。
+
+Xcodeのリークスを使ってアプリを動かせば何処でメモリリークしてるかわかりますが、
+全てのルートを通して試験しなければいけないので大変です。
+また、絶妙なタイミングでないとバグが発生しないことがあるためコードレベルの対策が必要です。
+
+バグの例：
+1.deallocでnotificationのobserver登録をremoveしていたが
+ block内でselfを使っているため、循環参照によりdeallocが呼ばれていなかった。
+2.viewDidDisappearがViewが破棄されるタイミングだと勘違いして
+ ここで使ってる変数を色々クリアしていたが、
+3.Observer登録が解除されていないためnotification通知が不意にきてしまい、
+ そのタイミングで色々クリア済みの配列の範囲外にアクセスでアプリがクラッシュ。
+
+
+対策１：ブロック内ではweakなselfにアクセスする。
+    - (void)viewDidLoad
+        __weak SampleMyClass* wself=self;
+        self.notificationObserver = [[NSNotificationCenter defaultCenter] addObserverForName:@"notificationName"
+                          object:nil
+                           queue:[NSOperationQueue mainQueue]
+                      usingBlock:^(NSNotification *note) {
+                          NSLog(@"name=%@",[wself.testArray objectAtIndex:2]);
+                      }];
+    }
+    -(void)dealloc {
+        [[NSNotificationCenter defaultCenter] removeObserver:self.notificationObserver];
+    }
+    -(void)viewDidDisappear:(BOOL)animated {
+        [self.testArray removeAllObjects]; // 通常はこんなところで使ってる変数をクリアしてはいけないがサンプル用
+    }
+
+    →block内でweakなselgを参照することにより循環参照しないのでdeallocが呼ばれる
+    →dellocでremoveObserverしていた場合は、通知登録が解除されるので、blockは実行されない。
+    →block実行中にselfが解放され、その後にwself.testArrayの行が実行された場合、selfは解放されているのでwselfはnilになっている。
+    →nilに対するメソッド呼び出しは無視されるため[wself.testArray objectAtIndex:2]でクラッシュしない。
+
+
+対策２：コールバック用で保持するものはweakを使う
+　例：delegateなど
+
+
+対策３：UI部品のOutletにはweakプロパティを利用する
+　 例：@property (nonatomic, strong) IBOutlet UILabel *label;
+
+
+■XCodeの便利な機能など
+
+XCodeが認識する特殊な形式のコメント
+// TODO: やらないといけない項目
+// FIXME: 修正が必要な項目
+// MARK: 注意点などのマーキング
+// !!!: 重要なポイント
+// ???: 疑問のあるポイント
+
+→この形式のコメントはエディタ領域の右上にあるメソッド一覧に出てきます、
+
+
+※使い所
+後々出てくるバグ達の中に「TODO:」と書いてある部分をやっておけば
+発生しなかった、というのがたまにあります。
+ちょっとでも気になるところは「FIXME: 」を書いておいて
+後で余裕があるタイミングで見直すという使い方ができます。
+
+
+■やった方がいい試験
+・使い込み試験でiOS7自体のバグが検出されることがあります。
+
+
+■その他
+
+・つかっているOSSのライセンスを記載する画面を用意する必要は？
+
