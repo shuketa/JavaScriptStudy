@@ -1,4 +1,13 @@
 
+CyanogenModというAndroid OSをカスタマイズしたオープンソースがある。
+
+
+http://www.engadget.com/2013/09/21/airplay-mirroring-android-cyanogenmod/
+→Android to AirPlay Mirroring demonstrated, coming soon to CyanogenMod
+
+
+http://stackoverflow.com/questions/20469242/implement-airplay-software-receiver-in-android-os
+→Implement Airplay Software Receiver in Android OS
 
 --------------------------------------------------------------------
 
